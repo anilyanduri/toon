@@ -1,6 +1,8 @@
+require_relative "lib/toon/version"
+
 Gem::Specification.new do |s|
   s.name        = 'ruby-toon'
-  s.version     = Toon::VERSION rescue '1.0.0'
+  s.version     = Toon::VERSION
   s.summary     = 'Token-Oriented Object Notation (TOON) implementation for Ruby'
   s.description = 'A full-featured TOON encoder/decoder with JSON feature parity: streaming, hooks, pretty generate, strict parsing, schema hints, CLI and ActiveSupport integration.'
   s.authors     = ['Anil Yanduri']

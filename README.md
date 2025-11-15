@@ -9,6 +9,7 @@ This gem provides:
 - A **TOON decoder** (TOON to Ruby)
 - A **CLI** (`bin/toon`) for converting TOON ↔ JSON
 - Optional **ActiveSupport integration** (`Object#to_toon`)
+- Built-in `Hash#to_toon` / `Array#to_toon` plus lightweight `#to_json` helpers
 - Full RSpec test suite
 
 ---
@@ -93,17 +94,39 @@ fields remain **strings**
 
 ## ActiveSupport Integration
 
-If ActiveSupport is installed:
+If ActiveSupport (and by extension Rails/Active Record) is installed—regardless of whether it loads before or after `toon`—every object gains `#to_toon`.
 
 ```ruby
-require "active_support"
 require "toon"
+require "active_support"
 
-{a: 1}.to_toon
-# => "a:1\n"
+class Session < ApplicationRecord; end
+
+Session.first.to_toon
+# => "id:1\nuser_id:42\n..."
 ```
 
-Adds `Object#to_toon` for convenience.
+- Automatically hooks in as soon as ActiveSupport finishes loading (thanks to a TracePoint watcher)
+- Falls back to `#as_json` when present, so Active Record / ActiveModel instances serialize their attributes instead of opaque object IDs
+
+## 🧩 Core Extensions
+
+`toon` now provides handy helpers even without ActiveSupport:
+
+```ruby
+require "toon"
+
+{foo: "bar"}.to_toon
+# => "foo:bar"
+
+[1, 2, 3].to_toon
+# => "[3]:\n  1\n  2\n  3\n"
+
+{foo: "bar"}.to_json
+# => "{\"foo\":\"bar\"}"
+```
+
+Both `Hash` and `Array` gain `#to_toon` and `#to_json` implementations so you can round-trip data between TOON and JSON with a single method call.
 
 ---
 

@@ -1,5 +1,6 @@
 require "spec_helper"
 require "open3"
+require "json"
 
 RSpec.describe "toon CLI" do
   let(:exe) { File.expand_path("../../bin/toon", __dir__) }

@@ -1,12 +1,41 @@
-# Optional ActiveSupport integration
-begin
-  require 'active_support'
-  require 'active_support/core_ext/object'
-  class Object
-    def to_toon(**opts)
-      Toon.generate(self, **opts)
+module Toon
+  module Extensions
+    module ActiveSupport
+      module ObjectMethods
+        def to_toon(**opts)
+          payload = respond_to?(:as_json) ? as_json : self
+          Toon.generate(payload, **opts)
+        end
+      end
+
+      module_function
+
+      def install!
+        return if Object.method_defined?(:to_toon)
+        Object.include(ObjectMethods)
+      end
+
+      def ensure_installed!
+        return unless defined?(::ActiveSupport)
+        install!
+      end
+
+      def watch_for_active_support!
+        return if defined?(@tracepoint) && @tracepoint&.enabled?
+        @tracepoint = TracePoint.new(:end) do |tp|
+          next unless tp.self.is_a?(Module)
+          next unless tp.self.name == "ActiveSupport"
+          ensure_installed!
+          @tracepoint.disable
+        end
+        @tracepoint.enable
+      end
     end
   end
-rescue LoadError
-  # no activesupport available
+end
+
+if defined?(::ActiveSupport)
+  Toon::Extensions::ActiveSupport.ensure_installed!
+else
+  Toon::Extensions::ActiveSupport.watch_for_active_support!
 end
