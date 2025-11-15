@@ -1,6 +1,7 @@
 require_relative "toon/version"
 require_relative "toon/encoder"
 require_relative "toon/decoder"
+require_relative "extensions/core"
 require_relative "extensions/active_support"
 
 module Toon

@@ -9,6 +9,7 @@ This gem provides:
 - A **TOON decoder** (TOON → Ruby)
 - A **CLI** (`bin/toon`) for converting TOON ↔ JSON
 - Optional **ActiveSupport integration** (`Object#to_toon`)
+- Built-in `Hash#to_toon` / `Array#to_toon` plus lightweight `#to_json` helpers
 - Full RSpec test suite
 
 ---
@@ -93,17 +94,37 @@ users[2]{id,name}:
 
 ## ⚙️ ActiveSupport Integration
 
-If ActiveSupport is installed:
+If ActiveSupport is installed (and can be required at any point before or after `toon`):
 
 ```ruby
-require "active_support"
 require "toon"
+require "active_support"
+require "active_support/core_ext/object"
 
 {a: 1}.to_toon
-# => "a:1\n"
+# => "a:1"
 ```
 
-Adds `Object#to_toon` for convenience.
+The integration automatically wires up `Object#to_toon` once ActiveSupport finishes loading—no manual hooks needed.
+
+## 🧩 Core Extensions
+
+`toon` now provides handy helpers even without ActiveSupport:
+
+```ruby
+require "toon"
+
+{foo: "bar"}.to_toon
+# => "foo:bar"
+
+[1, 2, 3].to_toon
+# => "[3]:\n  1\n  2\n  3\n"
+
+{foo: "bar"}.to_json
+# => "{\"foo\":\"bar\"}"
+```
+
+Both `Hash` and `Array` gain `#to_toon` and `#to_json` implementations so you can round-trip data between TOON and JSON with a single method call.
 
 ---
 
