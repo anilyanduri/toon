@@ -1,21 +1,21 @@
-# 🎋 Toon Token-Oriented Object Notation for Ruby
+# **Toon** (Token-Oriented Object Notation for Ruby)
 
 `toon` is a Ruby implementation of **TOON (Token-Oriented Object Notation)**
 a compact, readable, indentation-based data format designed for humans *and* machines.
 
 This gem provides:
 
-- A **TOON encoder** (Ruby → TOON)
-- A **TOON decoder** (TOON → Ruby)
+- A **TOON encoder** (Ruby to TOON)
+- A **TOON decoder** (TOON to Ruby)
 - A **CLI** (`bin/toon`) for converting TOON ↔ JSON
 - Optional **ActiveSupport integration** (`Object#to_toon`)
 - Full RSpec test suite
 
 ---
 
-## ✨ Features
+## Features
 
-### ✔ Encode Ruby objects → TOON
+### Encode Ruby objects to TOON
 ```ruby
 Toon.generate({ "name" => "Alice", "age" => 30 })
 ````
@@ -27,7 +27,7 @@ name:Alice
 age:30
 ```
 
-### ✔ Decode TOON → Ruby
+### Decode TOON to Ruby
 
 ```ruby
 Toon.parse("name:Alice\nage:30")
@@ -41,7 +41,7 @@ Returns:
 
 ---
 
-## 🧩 Arrays
+## Arrays
 
 ### Nested arrays (encoder output)
 
@@ -66,7 +66,7 @@ Both decode correctly.
 
 ---
 
-## 📊 Tabular Arrays
+## Tabular Arrays
 
 ### Nested tabular (encoder output)
 
@@ -77,7 +77,7 @@ users:
     2,B
 ```
 
-→ numeric fields parsed (`id` becomes integer)
+numeric fields parsed (`id` becomes integer)
 
 ### Flat tabular (user input)
 
@@ -87,11 +87,11 @@ users[2]{id,name}:
   2,Bob
 ```
 
-→ fields remain **strings**
+fields remain **strings**
 
 ---
 
-## ⚙️ ActiveSupport Integration
+## ActiveSupport Integration
 
 If ActiveSupport is installed:
 
@@ -107,7 +107,7 @@ Adds `Object#to_toon` for convenience.
 
 ---
 
-## 🚀 Installation
+## Installation
 
 Gem coming soon. For now:
 
@@ -125,15 +125,15 @@ require_relative "lib/toon"
 
 ---
 
-## 🧰 CLI Usage
+## CLI Usage
 
-### Encode JSON → TOON
+### Encode JSON to TOON
 
 ```bash
 echo '{"name":"Alice","age":30}' | bin/toon --encode
 ```
 
-### Decode TOON → JSON
+### Decode TOON to JSON
 
 ```bash
 echo "name:Alice\nage:30" | bin/toon --decode
@@ -147,7 +147,7 @@ bin/toon --encode < input.json
 
 ---
 
-## 🧪 Running Tests
+## Running Tests
 
 Ensure CLI is executable:
 
@@ -224,7 +224,7 @@ users[2]{id,name}:
 
 ---
 
-## ⚠️ Error Handling
+## Error Handling
 
 Malformed input (e.g., missing indentation):
 
@@ -236,7 +236,7 @@ Decoder stops with a friendly `Toon::Error`.
 
 ---
 
-## 🗺️ Roadmap
+## Roadmap
 
 * Multiline values
 * Quoted strings
