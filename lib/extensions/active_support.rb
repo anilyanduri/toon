@@ -16,11 +16,6 @@ module Toon
 
       def ensure_installed!
         return unless defined?(::ActiveSupport)
-        begin
-          require 'active_support/core_ext/object'
-        rescue LoadError
-          # ignore: core_ext may not be available in stripped builds
-        end
         install!
       end
 
