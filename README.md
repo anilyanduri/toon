@@ -109,7 +109,7 @@ User.first.to_toon
 - Automatically hooks in as soon as ActiveSupport finishes loading (thanks to a TracePoint watcher)
 - Falls back to `#as_json` when present, so Active Record / ActiveModel instances serialize their attributes instead of opaque object IDs
 
-## 🧩 Core Extensions
+## Core Extensions
 
 `toon` now provides handy helpers even without ActiveSupport:
 
