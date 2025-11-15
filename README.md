@@ -1,6 +1,6 @@
-# 🎋 Toon — Token-Oriented Object Notation for Ruby
+# 🎋 Toon Token-Oriented Object Notation for Ruby
 
-`toon` is a Ruby implementation of **TOON (Token-Oriented Object Notation)** —
+`toon` is a Ruby implementation of **TOON (Token-Oriented Object Notation)**
 a compact, readable, indentation-based data format designed for humans *and* machines.
 
 This gem provides:
