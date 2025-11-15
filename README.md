@@ -100,10 +100,10 @@ If ActiveSupport (and by extension Rails/Active Record) is installed—regardles
 require "toon"
 require "active_support"
 
-class Session < ApplicationRecord; end
+class User < ApplicationRecord; end
 
-Session.first.to_toon
-# => "id:1\nuser_id:42\n..."
+User.first.to_toon
+# => "id:1\nname:Alice\n..."
 ```
 
 - Automatically hooks in as soon as ActiveSupport finishes loading (thanks to a TracePoint watcher)
@@ -193,7 +193,7 @@ Tests include:
 
 ---
 
-## 📚 Supported TOON Grammar (Current)
+## Supported TOON Grammar (Current)
 
 ### Key-value
 
