@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require_relative '../lib/toon'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: toon [options] <file>"
+
+  opts.on('-d', '--decode', 'Decode TOON to JSON') { options[:decode] = true }
+  opts.on('-e', '--encode', 'Encode JSON to TOON') { options[:encode] = true }
+  opts.on('-oFILE', '--output=FILE', 'Write output to FILE') { |f| options[:output] = f }
+end.parse!
+
+input = ARGF.read
+if options[:decode]
+  out = Toon.parse(input)
+  require 'json'
+  result = JSON.pretty_generate(out)
+  if options[:output]
+    File.write(options[:output], result)
+  else
+    puts result
+  end
+elsif options[:encode]
+  require 'json'
+  obj = JSON.parse(input)
+  result = Toon.generate(obj)
+  if options[:output]
+    File.write(options[:output], result)
+  else
+    puts result
+  end
+else
+  puts "Either --encode or --decode required"
+  exit 1
+end
