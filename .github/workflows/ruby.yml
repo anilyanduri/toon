@@ -18,21 +18,13 @@ permissions:
 
 jobs:
   test:
-
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        ruby-version: ['2.7', '3.0']
-
+    runs-on: ubuntu-latest # will use ubuntu-24.04
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Ruby
-    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
-    # change this to (see https://github.com/ruby/setup-ruby#versioning):
-    # uses: ruby/setup-ruby@v1
-      uses: ruby/setup-ruby@v1.146.0 # v1.146.0
-      with:
-        ruby-version: ${{ matrix.ruby-version }}
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Run tests
-      run: bundle exec rspec
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler-cache: true
+
+      - run: bundle exec rspec
