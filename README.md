@@ -1,4 +1,3 @@
-````markdown
 # 🎋 Toon — Token-Oriented Object Notation for Ruby
 
 `toon` is a Ruby implementation of **TOON (Token-Oriented Object Notation)** —
