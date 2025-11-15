@@ -1,2 +1,2 @@
-# toonrb
+# toon
 TOON Format for Ruby
