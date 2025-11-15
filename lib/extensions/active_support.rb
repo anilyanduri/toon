@@ -3,7 +3,8 @@ module Toon
     module ActiveSupport
       module ObjectMethods
         def to_toon(**opts)
-          Toon.generate(self, **opts)
+          payload = respond_to?(:as_json) ? as_json : self
+          Toon.generate(payload, **opts)
         end
       end
 

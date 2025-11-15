@@ -31,4 +31,22 @@ RSpec.describe "ActiveSupport extension" do
     expect(status.success?).to eq(true), "stdout: #{stdout}\nstderr: #{stderr}"
     expect(stdout.strip).to eq("true")
   end
+
+  it "serializes via #as_json when available" do
+    require "active_support"
+    Toon::Extensions::ActiveSupport.ensure_installed!
+
+    model_class = Class.new do
+      def as_json(*)
+        { "list" => ["a", "b"], "count" => 2 }
+      end
+    end
+
+    instance = model_class.new
+    serialized = instance.to_toon
+
+    expect(serialized).to include("list")
+    expect(serialized).to include("[2]:")
+    expect(serialized).to include("count:2")
+  end
 end

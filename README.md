@@ -94,18 +94,20 @@ users[2]{id,name}:
 
 ## ⚙️ ActiveSupport Integration
 
-If ActiveSupport is installed (and can be required at any point before or after `toon`):
+If ActiveSupport (and by extension Rails/Active Record) is installed—regardless of whether it loads before or after `toon`—every object gains `#to_toon`.
 
 ```ruby
 require "toon"
 require "active_support"
-require "active_support/core_ext/object"
 
-{a: 1}.to_toon
-# => "a:1"
+class Session < ApplicationRecord; end
+
+Session.first.to_toon
+# => "id:1\nuser_id:42\n..."
 ```
 
-The integration automatically wires up `Object#to_toon` once ActiveSupport finishes loading—no manual hooks needed.
+- Automatically hooks in as soon as ActiveSupport finishes loading (thanks to a TracePoint watcher)
+- Falls back to `#as_json` when present, so Active Record / ActiveModel instances serialize their attributes instead of opaque object IDs
 
 ## 🧩 Core Extensions
 
