@@ -1,4 +1,4 @@
-# **Toon** (Token-Oriented Object Notation for Ruby)
+# **Toon** for Ruby (Token-Oriented Object Notation)
 [![Gem Version](https://badge.fury.io/rb/ruby-toon.svg)](https://badge.fury.io/rb/ruby-toon)
 [![Build Status](https://github.com/anilyanduri/toon/actions/workflows/ruby.yml/badge.svg?branch=main)](https://github.com/anilyanduri/toon/actions/workflows/ruby.yml)
 
